@@ -35,6 +35,15 @@ RestMart is a modern, responsive e‑commerce front‑end built with **React** a
 
 ---
 
+## Demo Credentials
+
+### Test Customer User Account
+
+```plaintext
+Email: yeyoji6975@jeanssi.com
+Password: DemoUser123
+```
+
 ## 📁 Project Structure
 
 ```text
@@ -78,7 +87,7 @@ restmart-frontend/
    yarn
    ```
 
-4. **Run the development server**
+3. **Run the development server**
 
    ```bash
    npm run dev   # default Vite command
@@ -86,7 +95,7 @@ restmart-frontend/
 
    The app runs at **[http://localhost:5173](http://localhost:5173)** by default.
 
-5. **Production build**
+4. **Production build**
 
    ```bash
    npm run build && npm run preview
