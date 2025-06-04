@@ -38,7 +38,7 @@ const useAuth = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await apiClient.get("/auth/users/me", {
-        headers: { Authorization: `JWT ${authTokens?.access}` },
+        headers: { Authorization: `Bearer ${authTokens?.access}` },
       });
       setUser(response.data);
     } catch (error) {
@@ -52,7 +52,7 @@ const useAuth = () => {
     try {
       await apiClient.put("/auth/users/me/", data, {
         headers: {
-          Authorization: `JWT ${authTokens?.access}`,
+          Authorization: `Bearer ${authTokens?.access}`,
         },
       });
     } catch (error) {
@@ -66,7 +66,7 @@ const useAuth = () => {
     try {
       await apiClient.post("/auth/users/set_password/", data, {
         headers: {
-          Authorization: `JWT ${authTokens?.access}`,
+          Authorization: `Bearer ${authTokens?.access}`,
         },
       });
     } catch (error) {
