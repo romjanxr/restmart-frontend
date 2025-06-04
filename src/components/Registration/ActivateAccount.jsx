@@ -8,7 +8,7 @@ const ActivateAccount = () => {
   const [error, setError] = useState("");
   const { uid, token } = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     apiClient
@@ -51,9 +51,4 @@ const ActivateAccount = () => {
   );
 };
 
-/* 
-
-http://localhost:5174/activate/OQ/cmewh1-009c16c67f002127368d56c1b99a831b
-
-*/
 export default ActivateAccount;

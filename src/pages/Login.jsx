@@ -93,7 +93,7 @@ const Login = () => {
             <p className="text-base-content/70">
               Don&apos;t have an account?{" "}
               <Link to="/register" className="link link-primary">
-                Sign up
+                Register
               </Link>
             </p>
           </div>
