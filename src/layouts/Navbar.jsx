@@ -1,10 +1,33 @@
 import { Link } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import useCartContext from "../hooks/useCartContext";
+import { useEffect, useRef } from "react";
+import useFetchCategories from "../hooks/useFetchCategories";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuthContext();
   const { cart } = useCartContext();
+  const detailsRef = useRef(null);
+
+  // Handle clicks outside the details element
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (detailsRef.current && !detailsRef.current.contains(event.target)) {
+        detailsRef.current.open = false;
+      }
+    }
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const categories = useFetchCategories();
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -28,44 +51,46 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Item 1</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
+              <details>
+                <summary>Categories</summary>
+                <ul className="p-2">
+                  {categories.map((category) => (
+                    <li key={category.id}>
+                      <a>{category.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
             </li>
             <li>
               <Link to="/shop">Shop</Link>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link to="/" className="btn btn-ghost text-xl">
+          RestMart
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
+            <details ref={detailsRef}>
+              <summary>Categories</summary>
+              <ul className="p-2 bg-base-100 rounded-box shadow z-[50] absolute">
+                {categories.map((category) => (
+                  <li key={category.id}>
+                    <a>{category.name}</a>
+                  </li>
+                ))}
               </ul>
             </details>
           </li>
@@ -106,7 +131,7 @@ const Navbar = () => {
               </div>
               <div
                 tabIndex={0}
-                className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
+                className="card card-compact dropdown-content bg-base-100 z-[50] mt-3 w-52 shadow"
               >
                 <div className="card-body">
                   <span className="text-lg font-bold">
@@ -140,7 +165,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow"
               >
                 <li>
                   <a className="justify-between">
