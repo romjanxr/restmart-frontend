@@ -107,11 +107,12 @@ const useAuth = () => {
   };
 
   // Logout User
-  const logoutUser = () => {
+  const logoutUser = (navigate) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
     localStorage.removeItem("cartId");
+    navigate("/");
   };
 
   return {

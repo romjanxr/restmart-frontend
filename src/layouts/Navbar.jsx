@@ -1,10 +1,11 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import useCartContext from "../hooks/useCartContext";
 import { useEffect, useRef } from "react";
 import useFetchCategories from "../hooks/useFetchCategories";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user, logoutUser } = useAuthContext();
   const { cart } = useCartContext();
   const detailsRef = useRef(null);
@@ -168,16 +169,16 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a className="justify-between">
+                  <Link to="/dashboard/profile" className="justify-between">
                     Profile
                     <span className="badge">New</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
-                  <a onClick={logoutUser}>Logout</a>
+                  <button onClick={() => logoutUser(navigate)}>Logout</button>
                 </li>
               </ul>
             </div>

@@ -1,7 +1,10 @@
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const Navbar = ({ sidebarOpen }) => {
+  const { logoutUser } = useAuthContext();
+  const navigate = useNavigate();
   return (
     <div className="navbar bg-base-100 border-b">
       <div className="flex-none lg:hidden">
@@ -31,16 +34,16 @@ const Navbar = ({ sidebarOpen }) => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link href="/profile" className="justify-between">
+              <Link to="/dashboard/profile" className="justify-between">
                 Profile
                 <span className="badge">New</span>
               </Link>
             </li>
             <li>
-              <Link href="/settings">Settings</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <button>Logout</button>
+              <button onClick={() => logoutUser(navigate)}>Logout</button>
             </li>
           </ul>
         </div>
