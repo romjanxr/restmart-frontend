@@ -7,6 +7,7 @@ const OrderCard = ({ order, onCancel }) => {
   const { user } = useAuthContext();
   const [status, setStatus] = useState(order.status);
   const [loading, setLoading] = useState(false);
+  const [validationMessage, setValidationMessage] = useState("");
 
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
@@ -27,6 +28,43 @@ const OrderCard = ({ order, onCancel }) => {
 
   const handlePayment = async () => {
     setLoading(true);
+
+    // 1. Centralize validation rules and messages
+    const validationRules = [
+      {
+        field: "first_name",
+        message: "first name",
+        condition: !user.first_name,
+      },
+      { field: "last_name", message: "last name", condition: !user.last_name },
+      { field: "address", message: "address", condition: !user.address },
+      {
+        field: "phone_number",
+        message: "phone number",
+        condition: !user.phone_number,
+      },
+    ];
+
+    const missingFields = validationRules
+      .filter((rule) => rule.condition)
+      .map((rule) => rule.message);
+
+    if (missingFields.length > 0) {
+      setValidationMessage(
+        `Please add your ${missingFields.join(
+          ", "
+        )} before proceeding with payment.`
+      );
+      setLoading(false);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Adds a smooth scrolling animation
+      });
+
+      return;
+    }
+
     try {
       const response = await authApiClient.post("/payment/initiate/", {
         amount: order.total_price,
@@ -47,6 +85,24 @@ const OrderCard = ({ order, onCancel }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
+      {validationMessage && (
+        <div role="alert" className="alert alert-info mb-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="h-6 w-6 shrink-0 stroke-current"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <span>{validationMessage}</span>
+        </div>
+      )}
       <div className="bg-gray-100 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h2 className="text-lg font-bold">Order #{order.id}</h2>
