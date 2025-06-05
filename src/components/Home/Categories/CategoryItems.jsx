@@ -20,7 +20,7 @@ const CategoryItems = ({ index, category }) => {
             {category.name.charAt(0)}
           </div>
           <span className="text-sm text-gray-600 bg-white/70 px-2 py-1 rounded-full">
-            {category.product_count} Items
+            {category.products_count} Items
           </span>
         </div>
         <h3 className="text-xl font-bold mb-2">{category.name}</h3>
