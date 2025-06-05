@@ -37,10 +37,17 @@ RestMart is a modern, responsive e‑commerce front‑end built with **React** a
 
 ## Demo Credentials
 
-### Test Customer User Account
+### Admin Access
 
 ```plaintext
-Email: yeyoji6975@jeanssi.com
+Email: admin@example.com
+Password: DemoAdmin123
+```
+
+### Customer Access
+
+```plaintext
+Email: test@example.com
 Password: DemoUser123
 ```
 
