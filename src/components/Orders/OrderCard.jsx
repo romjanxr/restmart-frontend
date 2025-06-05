@@ -3,11 +3,10 @@ import useAuthContext from "../../hooks/useAuthContext";
 import OrderTable from "./OrderTable";
 import authApiClient from "../../services/auth-api-client";
 
-const OrderCard = ({ order, onCancel }) => {
+const OrderCard = ({ order, onCancel, setValidationMessage }) => {
   const { user } = useAuthContext();
   const [status, setStatus] = useState(order.status);
   const [loading, setLoading] = useState(false);
-  const [validationMessage, setValidationMessage] = useState("");
 
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
@@ -53,7 +52,7 @@ const OrderCard = ({ order, onCancel }) => {
       setValidationMessage(
         `Please add your ${missingFields.join(
           ", "
-        )} before proceeding with payment.`
+        )} by editing your profile before proceeding with payment.`
       );
       setLoading(false);
 
@@ -85,24 +84,6 @@ const OrderCard = ({ order, onCancel }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
-      {validationMessage && (
-        <div role="alert" className="alert alert-info mb-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="h-6 w-6 shrink-0 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          <span>{validationMessage}</span>
-        </div>
-      )}
       <div className="bg-gray-100 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h2 className="text-lg font-bold">Order #{order.id}</h2>
