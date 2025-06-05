@@ -51,6 +51,9 @@ const OrderCard = ({ order, onCancel }) => {
         <div>
           <h2 className="text-lg font-bold">Order #{order.id}</h2>
           <p className="text-gray-600 text-sm">Placed on {order.created_at}</p>
+          <p className="text-gray-600 text-sm">
+            By: {`${order.user.first_name} ${order.user.last_name}`}
+          </p>
         </div>
         <div className="flex gap-2">
           {user.is_staff ? (
