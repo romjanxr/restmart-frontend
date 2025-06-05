@@ -1,5 +1,15 @@
-const Order = () => {
-  
+import formatDate from "../utils/formatDate";
+
+const Order = ({ orders, user }) => {
+  // Define the mapping from status to badge class
+  const orderBadgeColors = {
+    Completed: "badge-success",
+    "Ready To Ship": "badge-warning",
+    Processing: "badge-info",
+    Canceled: "badge-error",
+    "Not Paid": "badge-primary",
+  };
+
   return (
     <div className="mt-6 card bg-base-100 shadow-sm">
       <div className="card-body">
@@ -16,42 +26,26 @@ const Order = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#ORD-7245</td>
-                <td>John Smith</td>
-                <td>
-                  <div className="badge badge-success">Completed</div>
-                </td>
-                <td>Mar 8, 2025</td>
-                <td>$125.00</td>
-              </tr>
-              <tr>
-                <td>#ORD-7244</td>
-                <td>Sarah Johnson</td>
-                <td>
-                  <div className="badge badge-warning">Processing</div>
-                </td>
-                <td>Mar 7, 2025</td>
-                <td>$89.99</td>
-              </tr>
-              <tr>
-                <td>#ORD-7243</td>
-                <td>Michael Brown</td>
-                <td>
-                  <div className="badge badge-info">Shipped</div>
-                </td>
-                <td>Mar 7, 2025</td>
-                <td>$245.50</td>
-              </tr>
-              <tr>
-                <td>#ORD-7242</td>
-                <td>Emily Davis</td>
-                <td>
-                  <div className="badge badge-success">Completed</div>
-                </td>
-                <td>Mar 6, 2025</td>
-                <td>$112.75</td>
-              </tr>
+              {orders.map((order) => (
+                <tr key={order.id}>
+                  <td>{`#${order.id}`}</td>
+                  <td>
+                    {user.first_name} {user.last_name}
+                  </td>
+                  <td>
+                    {/* Dynamically set the badge class */}
+                    <div
+                      className={`badge ${
+                        orderBadgeColors[order.status] || "badge-neutral"
+                      }`}
+                    >
+                      {order.status}
+                    </div>
+                  </td>
+                  <td>{formatDate(order.created_at)}</td>
+                  <td>${order.total_price}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
