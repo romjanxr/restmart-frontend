@@ -12,8 +12,8 @@ const EditReviewForm = ({
       <div>
         <label className="label-text font-medium mb-1 block">Rating</label>
         <StarRating
-          rating={editReview.ratings}
-          onChange={(value) => setEditReview({ ...editReview, ratings: value })}
+          rating={editReview.rating}
+          onChange={(value) => setEditReview({ ...editReview, rating: value })}
         />
       </div>
       <div>
