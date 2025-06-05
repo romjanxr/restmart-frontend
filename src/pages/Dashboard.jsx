@@ -95,7 +95,7 @@ export default function Dashboard() {
           />
         </div>
       )}
-      <Order orders={orders} user={user} />
+      <Order orders={orders} />
     </div>
   );
 }

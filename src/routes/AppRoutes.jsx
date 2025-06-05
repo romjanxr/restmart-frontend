@@ -15,6 +15,11 @@ import Cart from "../pages/Cart";
 import Orders from "../pages/Orders";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import AddProduct from "../pages/AddProduct";
+import Products from "../components/Dashboard/Products";
+import Categories from "../components/Dashboard/Categories";
+import AddCategory from "../components/Dashboard/AddCategory";
+import Reviews from "../components/Dashboard/Reviews";
+import Users from "../components/Dashboard/Users";
 
 const AppRoutes = () => {
   return (
@@ -44,7 +49,12 @@ const AppRoutes = () => {
         <Route path="cart" element={<Cart />} />
         <Route path="orders" element={<Orders />} />
         <Route path="payment/success/" element={<PaymentSuccess />} />
+        <Route path="products/" element={<Products />} />
         <Route path="products/add" element={<AddProduct />} />
+        <Route path="categories" element={<Categories />} />
+        <Route path="categories/add" element={<AddCategory />} />
+        <Route path="reviews" element={<Reviews />} />
+        <Route path="users" element={<Users />} />
       </Route>
     </Routes>
   );

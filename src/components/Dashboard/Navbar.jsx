@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const Navbar = ({ sidebarOpen }) => {
-  const { logoutUser } = useAuthContext();
+  const { logoutUser, user } = useAuthContext();
   const navigate = useNavigate();
   return (
     <div className="navbar bg-base-100 border-b">
@@ -17,7 +17,10 @@ const Navbar = ({ sidebarOpen }) => {
         </label>
       </div>
       <div className="flex-1">
-        <h2 className="text-lg font-semibold">Dashboard</h2>
+        <h2 className="text-lg font-semibold">
+          Dashboard - {user.first_name || "No Name"}{" "}
+          {user.last_name || "Available"}
+        </h2>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">

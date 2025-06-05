@@ -1,6 +1,6 @@
 import formatDate from "../utils/formatDate";
 
-const Order = ({ orders, user }) => {
+const Order = ({ orders }) => {
   // Define the mapping from status to badge class
   const orderBadgeColors = {
     Completed: "badge-success",
@@ -30,7 +30,7 @@ const Order = ({ orders, user }) => {
                 <tr key={order.id}>
                   <td>{`#${order.id}`}</td>
                   <td>
-                    {user.first_name} {user.last_name}
+                    {order.user.first_name} {order.user.last_name}
                   </td>
                   <td>
                     {/* Dynamically set the badge class */}
